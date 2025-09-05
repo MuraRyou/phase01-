@@ -16,10 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('tweets.index')" :active="request()->routeIs('tweets.index')">
-            {{ __('Tweet�ꗗ') }}
+            {{ __('Tweet一覧') }}
           </x-nav-link>
           <x-nav-link :href="route('tweets.create')" :active="request()->routeIs('tweets.create')">
-            {{ __('Tweet�쐬') }}
+            {{ __('Tweet作成') }}
           </x-nav-link>
                 </div>
             </div>
@@ -77,10 +77,10 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
              <x-responsive-nav-link :href="route('tweets.index')" :active="request()->routeIs('tweets.index')">
-        {{ __('Tweet�ꗗ') }}
+        {{ __('Tweet一覧') }}
       </x-responsive-nav-link>
       <x-responsive-nav-link :href="route('tweets.create')" :active="request()->routeIs('tweets.create')">
-        {{ __('Tweet�쐬') }}
+        {{ __('Tweet作成') }}
       </x-responsive-nav-link>
         </div>
 

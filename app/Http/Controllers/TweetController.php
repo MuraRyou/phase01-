@@ -39,8 +39,8 @@ class TweetController extends Controller
     $request->user()->tweets()->create($request->only('tweet'));
 
     return redirect()->route('tweets.index');
-  }
     }
+    
 
     /**
      * Display the specified resource.
@@ -48,7 +48,7 @@ class TweetController extends Controller
     public function show(Tweet $tweet)
     {
         //
-        return view('tweets.show', compact('tweet'));
+        
     }
 
     /**
