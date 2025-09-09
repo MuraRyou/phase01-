@@ -3,7 +3,7 @@
      <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-      {{ __('TweetÚ×') }}
+      {{ __('Tweetè©³ç´°') }}
     </h2>
   </x-slot>
 
@@ -11,20 +11,20 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
-          <a href="{{ route('tweets.index') }}" class="text-blue-500 hover:text-blue-700 mr-2">ˆê——‚É–ß‚é</a>
+          <a href="{{ route('tweets.index') }}" class="text-blue-500 hover:text-blue-700 mr-2">ä¸€è¦§ã«æˆ»ã‚‹</a>
           <p class="text-gray-800 dark:text-gray-300 text-lg">{{ $tweet->tweet }}</p>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">“ŠeÒ: {{ $tweet->user->name }}</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">æŠ•ç¨¿è€…: {{ $tweet->user->name }}</p>
           <div class="text-gray-600 dark:text-gray-400 text-sm">
-            <p>ì¬“ú: {{ $tweet->created_at->format('Y-m-d H:i') }}</p>
-            <p>XV“ú: {{ $tweet->updated_at->format('Y-m-d H:i') }}</p>
+            <p>ä½œæˆæ—¥æ™‚: {{ $tweet->created_at->format('Y-m-d H:i') }}</p>
+            <p>æ›´æ–°æ—¥æ™‚: {{ $tweet->updated_at->format('Y-m-d H:i') }}</p>
           </div>
           @if (auth()->id() == $tweet->user_id)
           <div class="flex mt-4">
-            <a href="{{ route('tweets.edit', $tweet) }}" class="text-blue-500 hover:text-blue-700 mr-2">•ÒW</a>
-            <form action="{{ route('tweets.destroy', $tweet) }}" method="POST" onsubmit="return confirm('–{“–‚Éíœ‚µ‚Ü‚·‚©H');">
+            <a href="{{ route('tweets.edit', $tweet) }}" class="text-blue-500 hover:text-blue-700 mr-2">ç·¨é›†</a>
+            <form action="{{ route('tweets.destroy', $tweet) }}" method="POST" onsubmit="return confirm('æœ¬å½“ã«å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ');">
               @csrf
               @method('DELETE')
-              <button type="submit" class="text-red-500 hover:text-red-700">íœ</button>
+              <button type="submit" class="text-red-500 hover:text-red-700">å‰Šé™¤</button>
             </form>
           </div>
           @endif
