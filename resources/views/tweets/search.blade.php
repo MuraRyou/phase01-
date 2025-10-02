@@ -38,7 +38,7 @@
             <div class="flex flex-wrap gap-2 mt-2">
               @foreach ($tweet->tags as $tag)
               <a href="{{ route('tweets.index', ['tags' => $tag->id]) }}"
-                class="text-xs font-semibold px-2 py-1 rounded-full bg-indigo-200 text-indigo-800 dark:bg-indigo-700 dark:text-indigo-200 hover:bg-indigo-300 dark:hover:bg-indigo-600 transition duration-150 ease-in-out">
+                class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-600 text-white dark:bg-blue-700 dark:text-white hover:bg-blue-700 dark:hover:bg-blue-800 transition duration-150 ease-in-out">
                 #{{ $tag->name }}
               </a>
               @endforeach
