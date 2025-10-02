@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,32 @@ class TweetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $tweets = Tweet::with(['user', 'liked'])->latest()->get();
-    return view('tweets.index', compact('tweets'));
+         $query = Tweet::with(['user', 'liked', 'tags'])->latest();
+
+          $currentTag = null; 
+
+        // ★★★ タグによるフィルタリングロジック ★★★
+        if ($request->filled('tags')) {
+            // URLからタグIDを取得
+            $tagId = $request->tags;
+            
+            // whereHasで、そのタグIDを持つツイートのみに絞り込む
+            $query->whereHas('tags', function ($q) use ($tagId) {
+                // 中間テーブル（taggables）の tag_id が指定された $tagId と一致するツイートに絞る
+                $q->where('tags.id', $tagId);
+            });
+
+              $currentTag = Tag::find($tagId);
+              
+        }
+        // ★★★ ロジックここまで ★★★
+
+        // クエリを実行してツイートを取得
+        $tweets = $query->get();
+
+        return view('tweets.index', compact('tweets', 'currentTag'));
     }
 
     /**
@@ -34,12 +56,39 @@ class TweetController extends Controller
         //
         $request->validate([
       'tweet' => 'required|max:255',
+      'tags' => 'nullable|string|max:255',
     ]);
 
-    $request->user()->tweets()->create($request->only('tweet'));
 
-    return redirect()->route('tweets.index');
+ 
+    // 1. ツイートの保存
+        $tweet = $request->user()->tweets()->create($request->only('tweet'));
+
+        // 2. タグ処理
+        if ($request->filled('tags')) {
+            // カンマ区切りでタグ名を配列に分割し、空白を削除
+            $tagNames = collect(explode(',', $request->tags))
+                        ->map(fn($tag) => trim($tag))
+                        ->filter(); // 空の要素を削除
+
+            $tagIds = [];
+
+            foreach ($tagNames as $tagName) {
+                // タグ名で検索し、存在しなければ新規作成
+                $tag = Tag::firstOrCreate(
+                    ['name' => $tagName]
+                );
+                $tagIds[] = $tag->id;
+            }
+
+            // 3. ツイートとタグを中間テーブルで紐づける (多対多のリレーション)
+            $tweet->tags()->attach($tagIds);
+        }
+
+        return redirect()->route('tweets.index')->with('success', 'ツイートが投稿されました！');
     }
+
+    
     
 
     /**

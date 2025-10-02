@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Tag;
 
 class Tweet extends Model
 {
@@ -25,5 +26,11 @@ class Tweet extends Model
    public function liked()
   {
       return $this->belongsToMany(User::class)->withTimestamps();
+  }
+
+   public function tags()
+  {
+        // Tweetモデルは Tagモデルと多対多の関係にある（中間テーブル: tag_tweet）
+        return $this->belongsToMany(Tag::class);
   }
 }
