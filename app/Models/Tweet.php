@@ -28,9 +28,10 @@ class Tweet extends Model
       return $this->belongsToMany(User::class)->withTimestamps();
   }
 
-   public function tags()
-  {
-        // Tweetモデルは Tagモデルと多対多の関係にある（中間テーブル: tag_tweet）
-        return $this->belongsToMany(Tag::class);
-  }
+  
+    public function tags()
+    {
+        // tag_tweet テーブルを使った多対多（ツイートとタグの関係）
+        return $this->belongsToMany(Tag::class, 'tag_tweet', 'tweet_id', 'tag_id');
+    }
 }

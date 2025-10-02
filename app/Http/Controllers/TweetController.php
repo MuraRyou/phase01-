@@ -29,7 +29,7 @@ class TweetController extends Controller
             });
 
               $currentTag = Tag::find($tagId);
-              
+
         }
         // ★★★ ロジックここまで ★★★
 
@@ -145,7 +145,7 @@ class TweetController extends Controller
     public function search(Request $request)
     {
 
-         $query = Tweet::query();
+           $query = Tweet::with(['user', 'liked', 'tags']);
 
          // キーワードが指定されている場合のみ検索を実行
          if ($request->filled('keyword')) {
